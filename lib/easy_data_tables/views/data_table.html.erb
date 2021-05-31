@@ -1,0 +1,26 @@
+<table class="table datatable" data-controller="datatable">
+  <thead>
+    <tr>
+      <th></th> 
+      <% @chart.labels.each do |label| %>
+        <th title="<%=t(".#{label}_title")%>" >
+          <%= t(".#{label}") %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @chart.rows.each do |row| %>
+      <tr>
+        <td>
+          <%= row %>
+        </td>
+        <% @chart.columns.each do |column| %>
+          <td>
+            <%= column.formated_data_at(row) %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
