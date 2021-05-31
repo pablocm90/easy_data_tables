@@ -1,12 +1,9 @@
 require "easy_data_tables/version"
-
-if defined?(ActiveSupport.on_load)
-  ActiveSupport.on_load(:action_view) do
-    include EasyDataTables::Helper
-  end
-end
+# require "app/helpers/helper"
+require "easy_data_tables/engine"
+# require "easy_data_tables/models/column"
+# require "easy_data_tables/models/combined_column"
 
 module EasyDataTables
   class Error < StandardError; end
-  
 end

@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th></th> 
-      <% @chart.labels.each do |label| %>
+      <% data_table.labels.each do |label| %>
         <th title="<%=t(".#{label}_title")%>" >
           <%= t(".#{label}") %>
         </th>
@@ -10,12 +10,12 @@
     </tr>
   </thead>
   <tbody>
-    <% @chart.rows.each do |row| %>
+    <% data_table.rows.each do |row| %>
       <tr>
         <td>
           <%= row %>
         </td>
-        <% @chart.columns.each do |column| %>
+        <% data_table.columns.each do |column| %>
           <td>
             <%= column.formated_data_at(row) %>
           </td>
