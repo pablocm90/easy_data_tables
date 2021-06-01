@@ -1,48 +1,46 @@
 # frozen_string_literal: true
 
-module EasyDataTables
-  class Column
-    attr_reader :label
+class Column
+  attr_reader :label
 
-    def initialize(args = {}) #values = {}, label = '', type = 'Integer')
-      @label = args[:label] || ''
-      @type = args[:type] || 'Integer'
-      @default = args[:default] || 0
-      @collection = args[:collection]
-      @grouping = args[:grouping]
-      @agregate_function = args[:agregate_function]
-      @values = construct_values
+  def initialize(args = {}) #values = {}, label = '', type = 'Integer')
+    @label = args[:label] || ''
+    @type = args[:type] || 'Integer'
+    @default = args[:default] || 0
+    @collection = args[:collection]
+    @grouping = args[:grouping]
+    @agregate_function = args[:agregate_function]
+    @values = construct_values
+  end
+
+
+  def formated_data_at(row)
+    case @type
+    when 'Integer'
+      helpers.number_with_delimiter(data_at(row))
+    when 'Percentage'
+      helpers.number_to_percentage(data_at(row), precision: 2)
+    when 'Currency'
+      helpers.number_to_currency(data_at(row))
+    else
+      data_at(row)
     end
+  end
+
+  def data_at(row)
+    @values[row]
+  end
 
 
-    def formated_data_at(row)
-      case @type
-      when 'Integer'
-        helpers.number_with_delimiter(data_at(row))
-      when 'Percentage'
-        helpers.number_to_percentage(data_at(row), precision: 2)
-      when 'Currency'
-        helpers.number_to_currency(data_at(row))
-      else
-        data_at(row)
-      end
-    end
+  private
 
-    def data_at(row)
-      @values[row]
-    end
+  def construct_values
+    Hash.new(@default)
+      .merge(@collection.send(*@grouping).send(*@agregate_function))
+      .merge({ 'TOTAL' => @collection.send(*@agregate_function) })
+  end
 
-
-    private
-
-    def construct_values
-      Hash.new(@default)
-        .merge(@collection.send(*@grouping).send(*@agregate_function))
-        .merge({ 'TOTAL' => @collection.send(*@agregate_function) })
-    end
-
-    def helpers
-      ActionController::Base.helpers
-    end
+  def helpers
+    ActionController::Base.helpers
   end
 end

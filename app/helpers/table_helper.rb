@@ -2,7 +2,7 @@
 
 module TableHelper
   def easy_data_table(columns, label, grouping)
-    data_table = Kpis::DataTable.new(
+    data_table = DataTable.new(
       columns,
       label,
       grouping
