@@ -1,4 +1,5 @@
-<table class="table datatable" data-controller="datatable">
+<%= render 'easy_data_tables/download_links' %>
+<table class="table datatable" id="easy_data_table" data-controller="datatable">
   <thead>
     <tr>
       <th></th> 
@@ -16,7 +17,7 @@
           <%= row %>
         </td>
         <% data_table.columns.each do |column| %>
-          <td>
+          <td data-unformated-value="<%= column.data_at(row) %>">
             <%= column.formated_data_at(row) %>
           </td>
         <% end %>
@@ -24,3 +25,60 @@
     <% end %>
   </tbody>
 </table>
+
+<%= render 'easy_data_tables/download_links' %>
+
+<script>
+  // Quick and simple export target #table_id into a csv
+  function download_unformated_table_as_csv(table_id, separator = ',') {
+      const rows = document.querySelectorAll('table#' + table_id + ' tr');
+      const csv = [];
+      for (let i = 0; i < rows.length; i++) {
+          let row = []
+          let cols = rows[i].querySelectorAll('td, th');
+          for (let j = 0; j < cols.length; j++) {
+              let data;
+              if (cols[j].dataset.unformatedValue) {
+                data = cols[j].dataset.unformatedValue
+              }
+              else {
+                data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+              }
+              data = data.replace(/"/g, '""');
+              row.push('"' + data + '"');
+          }
+          csv.push(row.join(separator));
+      }
+      createLink(csv, table_id)
+  }
+  
+  function download_formated_table_as_csv(table_id, separator = ',') {
+      const rows = document.querySelectorAll('table#' + table_id + ' tr');
+      const csv = [];
+      for (let i = 0; i < rows.length; i++) {
+          let row = []
+          let cols = rows[i].querySelectorAll('td, th');
+          for (let j = 0; j < cols.length; j++) {
+              let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+              data = data.replace(/"/g, '""');
+              row.push('"' + data + '"');
+          }
+          csv.push(row.join(separator));
+      }
+      createLink(csv, table_id)
+  }
+
+  function createLink(csv, table_id) {
+      const csv_string = csv.join('\n');
+      // Download it
+      const filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      link.setAttribute('target', '_blank');
+      link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
+</script>
