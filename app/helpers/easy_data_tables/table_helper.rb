@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Creates and exposes the helper method
 module EasyDataTables
+  # Creates and exposes the helper method
   module TableHelper
     def easy_data_table(columns, label, grouping)
       data_table = DataTable.new(

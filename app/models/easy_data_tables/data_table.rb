@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# creates the datatable and it's columns
 module EasyDataTables
+  # creates the datatable and it's columns
   class DataTable
     attr_reader :columns, :rows, :labels
 

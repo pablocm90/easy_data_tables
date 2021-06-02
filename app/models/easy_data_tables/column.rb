@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Column class, we can access the formated data and the data of a particular cell
 module EasyDataTables
+  # Column class, we can access the formated data and the data of a particular cell
   class Column
     attr_reader :label
 

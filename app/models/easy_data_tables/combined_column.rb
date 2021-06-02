@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# combined columns. can substract and create rates
 module EasyDataTables
+  # combined columns. can substract and create rates
   class CombinedColumn < EasyDataTables::Column
     attr_accessor :columns
 
