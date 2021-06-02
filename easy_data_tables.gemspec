@@ -9,12 +9,12 @@ Gem::Specification.new do |spec|
   spec.email         = ['pablocm90@gmail.com']
 
   spec.summary       = 'Gem to easily create data tables'
-  spec.description   = 'tbc'
+  spec.description   = 'Create fast tables based on the models of your db'
   spec.homepage      = 'https://github.com/pablocm90/easy_data_tables'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.4.0')
 
-  spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata['allowed_push_host'] = "https://rubygems.org/"
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/pablocm90/easy_data_tables'
