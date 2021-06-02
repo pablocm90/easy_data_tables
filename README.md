@@ -2,6 +2,8 @@
 
 This gem provides a way to create fast tables based on the models of your db. It will expose a helper method `easy_data_table(columns, rows, grouping)`that will output a datatable with the rows and the columns you indicated.
 
+Two links above and below the table will allow you to export it on csv format
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -23,6 +25,11 @@ Or install it yourself as:
 ### Helper Method
 
 You will have a method available once you install this gem: `easy_data_table(columns, rows, grouping)` in order to expose it, you need to add `helper EasyDataTables::Engine.helpers` to your app's ApplicationController. You can call this helper method in any view and it will output a table with the data you provide.
+
+In order to access the style of the application add: 
+`@import "easy_data_tables/application";`
+
+to your `application.scss`
 
 ### Parameters
 
@@ -108,14 +115,18 @@ in order to have correct looking column labels you must have a I18n file that wi
 en:
   easy_data_tables: 
     data_table:
-        user_count: User count
-        user_count_title: "Count of all the users that have the row's status"
-        active_user_count: Active User Count
-        active_user_count_title: Active users for each status
-        active_user_expense: Active User Expense
-        active_user_expense_title: Sum of the expenses for the active users of each status
-        active_user_rate: Active User Rate
-        active_user_rate_title: % of active users over total users per status
+      user_count: User count
+      user_count_title: "Count of all the users that have the row's status"
+      active_user_count: Active User Count
+      active_user_count_title: Active users for each status
+      active_user_expense: Active User Expense
+      active_user_expense_title: Sum of the expenses for the active users of each status
+      active_user_rate: Active User Rate
+      active_user_rate_title: % of active users over total users per status
+    download_links:
+      download_formated_csv: Download Formated CSV
+      download_unformated_csv:  Download Unformated CSV
+    
 ```
 
 On hover on a column label, you will have the title that appears as a tooltip. 
