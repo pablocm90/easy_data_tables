@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-
+# combined columns. can substract and create rates
 class CombinedColumn < Column
   attr_accessor :columns
 
