@@ -26,6 +26,7 @@ Or install it yourself as:
 
 You will have a method available once you install this gem: `easy_data_table(columns, rows, grouping)` in order to expose it, you need to add `helper EasyDataTables::Engine.helpers` to your app's ApplicationController. You can call this helper method in any view and it will output a table with the data you provide.
 
+### Style
 In order to access the style of the application add: 
 `@import "easy_data_tables/application";`
 
