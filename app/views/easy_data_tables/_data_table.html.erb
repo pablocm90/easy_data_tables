@@ -1,4 +1,4 @@
-<a href="#" onclick="download_table_as_csv('easy_data_table');">Download as CSV</a>
+<%= render 'easy_data_tables/download_links' %>
 <table class="table datatable" id="easy_data_table" data-controller="datatable">
   <thead>
     <tr>
@@ -26,19 +26,17 @@
   </tbody>
 </table>
 
-<a href="#" onclick="download_table_as_csv('easy_data_table');">Download as CSV</a>
+<%= render 'easy_data_tables/download_links' %>
+
 <script>
   // Quick and simple export target #table_id into a csv
-  function download_table_as_csv(table_id, separator = ',') {
-      // Select rows from table_id
+  function download_unformated_table_as_csv(table_id, separator = ',') {
       const rows = document.querySelectorAll('table#' + table_id + ' tr');
-      // Construct csv
       const csv = [];
       for (let i = 0; i < rows.length; i++) {
           let row = []
           let cols = rows[i].querySelectorAll('td, th');
           for (let j = 0; j < cols.length; j++) {
-              // Clean innertext to remove multiple spaces and jumpline (break csv)
               let data;
               if (cols[j].dataset.unformatedValue) {
                 data = cols[j].dataset.unformatedValue
@@ -46,13 +44,31 @@
               else {
                 data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
               }
-              // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
               data = data.replace(/"/g, '""');
-              // Push escaped string
               row.push('"' + data + '"');
           }
           csv.push(row.join(separator));
       }
+      createLink(csv, table_id)
+  }
+  
+  function download_formated_table_as_csv(table_id, separator = ',') {
+      const rows = document.querySelectorAll('table#' + table_id + ' tr');
+      const csv = [];
+      for (let i = 0; i < rows.length; i++) {
+          let row = []
+          let cols = rows[i].querySelectorAll('td, th');
+          for (let j = 0; j < cols.length; j++) {
+              let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+              data = data.replace(/"/g, '""');
+              row.push('"' + data + '"');
+          }
+          csv.push(row.join(separator));
+      }
+      createLink(csv, table_id)
+  }
+
+  function createLink(csv, table_id) {
       const csv_string = csv.join('\n');
       // Download it
       const filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
