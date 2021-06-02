@@ -1,0 +1,5 @@
+.easy-data-tables__links {
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+}
