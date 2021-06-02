@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# Column class, we can access the formated data and the data of a particular cell
 class Column
   attr_reader :label
 
-  def initialize(args = {}) #values = {}, label = '', type = 'Integer')
+  # values = {}, label = '', type = 'Integer')
+  def initialize(args = {})
     @label = args[:label] || ''
     @type = args[:type] || 'Integer'
     @default = args[:default] || 0
@@ -12,7 +14,6 @@ class Column
     @agregate_function = args[:agregate_function]
     @values = construct_values
   end
-
 
   def formated_data_at(row)
     case @type
@@ -31,13 +32,12 @@ class Column
     @values[row]
   end
 
-
   private
 
   def construct_values
     Hash.new(@default)
-      .merge(@collection.send(*@grouping).send(*@agregate_function))
-      .merge({ 'TOTAL' => @collection.send(*@agregate_function) })
+        .merge(@collection.send(*@grouping).send(*@agregate_function))
+        .merge({ 'TOTAL' => @collection.send(*@agregate_function) })
   end
 
   def helpers
