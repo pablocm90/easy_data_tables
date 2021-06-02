@@ -1,4 +1,5 @@
-<table class="table datatable" data-controller="datatable">
+<a href="#" onclick="download_table_as_csv('easy_data_table');">Download as CSV</a>
+<table class="table datatable" id="easy_data_table" data-controller="datatable">
   <thead>
     <tr>
       <th></th> 
@@ -16,7 +17,7 @@
           <%= row %>
         </td>
         <% data_table.columns.each do |column| %>
-          <td>
+          <td data-unformated-value="<%= column.data_at(row) %>">
             <%= column.formated_data_at(row) %>
           </td>
         <% end %>
@@ -25,4 +26,43 @@
   </tbody>
 </table>
 
-<%= link_to "csv", csv_export_path(format: :csv) %>
+<a href="#" onclick="download_table_as_csv('easy_data_table');">Download as CSV</a>
+<script>
+  // Quick and simple export target #table_id into a csv
+  function download_table_as_csv(table_id, separator = ',') {
+      // Select rows from table_id
+      const rows = document.querySelectorAll('table#' + table_id + ' tr');
+      // Construct csv
+      const csv = [];
+      for (let i = 0; i < rows.length; i++) {
+          let row = []
+          let cols = rows[i].querySelectorAll('td, th');
+          for (let j = 0; j < cols.length; j++) {
+              // Clean innertext to remove multiple spaces and jumpline (break csv)
+              let data;
+              if (cols[j].dataset.unformatedValue) {
+                data = cols[j].dataset.unformatedValue
+              }
+              else {
+                data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+              }
+              // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+              data = data.replace(/"/g, '""');
+              // Push escaped string
+              row.push('"' + data + '"');
+          }
+          csv.push(row.join(separator));
+      }
+      const csv_string = csv.join('\n');
+      // Download it
+      const filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+      const link = document.createElement('a');
+      link.style.display = 'none';
+      link.setAttribute('target', '_blank');
+      link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
+</script>

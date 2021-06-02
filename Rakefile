@@ -1,8 +1,20 @@
 # frozen_string_literal: true
 
-require 'bundler/gem_tasks'
-require 'rspec/core/rake_task'
+require "bundler/setup"
 
-RSpec::Core::RakeTask.new(:spec)
+APP_RAKEFILE = File.expand_path("test/dummy/Rakefile", __dir__)
+load "rails/tasks/engine.rake"
 
-task default: :spec
+load "rails/tasks/statistics.rake"
+
+require "bundler/gem_tasks"
+
+require "rake/testtask"
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
+task default: :test
