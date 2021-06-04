@@ -20,7 +20,7 @@ module EasyDataTables
         if col.is_a?(CombinedColumn)
           col.columns = columns.find_all { |col2| col.columns.include?(col2.label) }.sort do |column|
             col.columns.index(column.label)
-          end 
+          end
         end
         col
       end
