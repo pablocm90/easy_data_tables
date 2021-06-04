@@ -20,7 +20,7 @@ module EasyDataTables
         if col.is_a?(CombinedColumn)
           col.columns = columns.find_all { |col2| col.columns.include?(col2.label) }.sort do |column|
             col.columns.index(column.label)
-          end
+          end 
         end
         col
       end
@@ -28,8 +28,11 @@ module EasyDataTables
 
     def convert_columns(columns)
       columns.map! do |col|
-        if col[:column_type] == 'combined'
+        case col[:column_type]
+        when 'combined'
           CombinedColumn.new(col)
+        when 'custom'
+          CustomColumn.new(col)
         else
           Column.new(col.merge(grouping: @grouping))
         end

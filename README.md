@@ -35,7 +35,7 @@ to your `application.scss`
 
 #### Columns
 
-Columns are an array of hashes. There are two types of columns: 'normal' and 'combined'
+Columns are an array of hashes. There are three types of columns: 'normal', 'custom' and 'combined'
 
 Normal column hashes accept the following keys: 
 
@@ -45,6 +45,11 @@ Normal column hashes accept the following keys:
 - **collection**: ActiveRecord::Relation, **required** => The data of the column (e.g. User.where(active: true)- -
 - **agregate_function**: Array of symbols OR symbol, **required** => aggregate function to run (e.g. [:average, :expense] OR :count)
 - **column_type**: string => will inform the type of column to use
+
+Custom column hashes accept the following keys: 
+- **label**: string, default: '' => will inform the label of the column on the table
+- **values**: Hash, keys must coincide with the rows of the table, values are the content that will appear in each cell
+- **column_type**: string => must be '**custom**'
 
 Cobmbined column hashes accept the following keys: 
 
@@ -157,3 +162,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ### v 0.2.0
 - added possibility of downloading the table as a csv (both formated and unformated)
+
+### v 0.2.0
+- added possibility of creating custom tables
