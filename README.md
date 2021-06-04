@@ -47,10 +47,13 @@ Normal column hashes accept the following keys:
 - **agregate_function**: Array of symbols OR symbol, **required** => aggregate function to run (e.g. [:average, :expense] OR :count)
 - **column_type**: string => will inform the type of column to use
 
-Custom column hashes accept the following keys: 
+Custom column hashes accept the following keys:
+
 - **label**: string, default: '' => will inform the label of the column on the table
 - **values**: Hash, keys must coincide with the rows of the table, values are the content that will appear in each cell
 - **column_type**: string => must be '**custom**'
+
+NB: A rendered template can be used here for each column (for example to have a form per column)
 
 Cobmbined column hashes accept the following keys: 
 
@@ -98,6 +101,11 @@ easy_data_table(
             columns: ['active_user_count', 'user_count'],
             method: 'rate',
             label: 'active_user_rate'
+          },
+          {
+            column_type: 'custom',
+            values:  {"Premium" => '30 eur', 'Freemium' => '0 eur', 'Premium++' => '60 eur'}
+            label: 'monthly_cost'
           }
     ],
     User.all.pluck(:status).uniq,
@@ -107,11 +115,11 @@ easy_data_table(
 ```
 will generate a table that looks like this: 
 
-|            | User count | Active user count | Active user expense | Active User Rate |
+|            | User count | Active user count | Active user expense | Active User Rate |  Monthly Cost  |
 |------------|------------|-------------------|---------------------|------------------|
-| Premium    | 10         | 8                 | 90 $                | 80 %             |
-| Freemium   | 5          | 3                 | 0 $                 | 60 %             |
-| Premium ++ | 3          | 1                 | 150 $               | 33.33 %          |
+| Premium    | 10         | 8                 | 90 $                | 80 %             |  30 eur        |
+| Freemium   | 5          | 3                 | 0 $                 | 60 %             |   0 eur        |
+| Premium ++ | 3          | 1                 | 150 $               | 33.33 %          |  60 eur        |
 
 The table has the classes : "table" and "datatable"
 
@@ -129,6 +137,8 @@ en:
       active_user_expense_title: Sum of the expenses for the active users of each status
       active_user_rate: Active User Rate
       active_user_rate_title: % of active users over total users per status
+      monthly_cost: Monthly Cost
+      monthly_cost_title: Monthly Cost
     download_links:
       download_formated_csv: Download Formated CSV
       download_unformated_csv:  Download Unformated CSV
