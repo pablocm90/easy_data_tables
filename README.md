@@ -116,7 +116,7 @@ easy_data_table(
 will generate a table that looks like this: 
 
 |            | User count | Active user count | Active user expense | Active User Rate |  Monthly Cost  |
-|------------|------------|-------------------|---------------------|------------------|
+|------------|------------|-------------------|---------------------|------------------|---------------|
 | Premium    | 10         | 8                 | 90 $                | 80 %             |  30 eur        |
 | Freemium   | 5          | 3                 | 0 $                 | 60 %             |   0 eur        |
 | Premium ++ | 3          | 1                 | 150 $               | 33.33 %          |  60 eur        |
