@@ -41,11 +41,12 @@ Columns are an array of hashes. There are three types of columns: 'normal', 'cus
 Normal column hashes accept the following keys: 
 
 - **label**: string, default: '' => will inform the label of the column on the table
-- **type**: string, default: 'Integer', options: 'Integer', 'Currency', 'Percentage' => will inform the formating of the column
+- **type**: string, default: 'Integer', options: 'Integer', 'Currency', 'Percentage', 'Date' => will inform the formating of the column
 - **default**: any, default: 0 => Will inform the default when a value is not found
 - **collection**: ActiveRecord::Relation, **required** => The data of the column (e.g. User.where(active: true)- -
 - **agregate_function**: Array of symbols OR symbol, **required** => aggregate function to run (e.g. [:average, :expense] OR :count)
 - **column_type**: string => will inform the type of column to use
+- **date_format**: symbol, default: :default => Will inform the formating of the date
 
 Custom column hashes accept the following keys:
 
@@ -58,10 +59,11 @@ NB: A rendered template can be used here for each column (for example to have a 
 Cobmbined column hashes accept the following keys: 
 
 - **label**: string, default: '' => will inform the label of the column on the table
-- **type**: string, default: 'Integer', options: 'Integer', 'Currency', 'Percentage' => will inform the formating of the column
+- **type**: string, default: 'Integer', options: 'Integer', 'Currency', 'Percentage', 'Date' => will inform the formating of the column
 - **columns**: Array, **required** => Will inform the columns to combine (e.g. ['expenditure', 'user_count'])
 - **method**: string, options: 'rate', 'substract', **required** => how to combine the columns to produce the data cell value
 - **column_type**: string, **must be set to 'combined'** => will inform the type of column to use
+- **date_format**: symbol, default: :default => Will inform the formating of the date
 
 ### Rows
 
