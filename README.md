@@ -178,3 +178,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ### v 0.3.0
 - added possibility of creating custom columns
+
+### v 0.3.1
+- added possibility of formating date columns
