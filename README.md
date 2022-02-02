@@ -4,6 +4,13 @@ This gem provides a way to create fast tables based on the models of your db. It
 
 Two links above and below the table will allow you to export it on csv format
 
+|            | User count | Active user count | Active user expense | Active User Rate |  Monthly Cost  |
+|------------|------------|-------------------|---------------------|------------------|---------------|
+| Premium    | 10         | 8                 | 90 $                | 80 %             |  30 eur        |
+| Freemium   | 5          | 3                 | 0 $                 | 60 %             |   0 eur        |
+| Premium ++ | 3          | 1                 | 150 $               | 33.33 %          |  60 eur        |
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
